@@ -26,4 +26,17 @@
       </p>
     </mat-card-content>
   </mat-card>
+  <mat-card *ngIf="people" fxFlex>
+      <mat-card-header>
+        <div mat-card-avatar></div>
+        <mat-card-title>
+          <h3>Featured employee: {{people.name | uppercase}}</h3>
+        </mat-card-title>
+      </mat-card-header>
+      <img mat-card-image src={{people.image}} alt={{people.name}}>
+      <mat-card-content>
+        <p>{{people.description}}
+        </p>
+      </mat-card-content>
+    </mat-card>
 </div>

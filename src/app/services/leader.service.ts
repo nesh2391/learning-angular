@@ -10,8 +10,8 @@ export class LeaderService {
   getAllEmployees() : People[] {
     return Employees;
   }
-  getAll() : People[]{
-    return Employees;
+  getFeaturedLeader() : People {
+    return Employees.filter(People=>People.featured==1)[0];
   }
 
 }
