@@ -1,0 +1,44 @@
+<div class="row">
+  
+  <div class="col-3 menu">
+    <ul>
+      <li>The Flight</li>
+      <li>The City</li>
+      <li>The Island</li>
+      <li>The Food</li>
+    </ul>
+  </div>
+  
+  <div class="col-8">
+    <h1>The City</h1>
+    <p>Chania is the capital of the Chania region on the island of Crete. The city can be divided in two parts, the old town and the modern city.</p>
+    <p>Resize the browser window to see how the content respond to the resizing.</p>
+  </div>
+  
+  </div>
+  <p>Post component</p>
+      <mat-card *ngFor = "let item of Employees">
+      <mat-card-title>{{item.name}}	</mat-card-title>
+        <mat-card-content>{{item.description}}</mat-card-content>
+    </mat-card>
+
+
+  <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Shiba Inu</mat-card-title>
+        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="http://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+      <mat-card-content>
+        <p>
+          The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+          A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+          bred for hunting.
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+      </mat-card-actions>
+    </mat-card>
