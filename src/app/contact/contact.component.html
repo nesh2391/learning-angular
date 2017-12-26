@@ -19,15 +19,17 @@
 
           <i class="fa fa-envelope"></i>:
           <a href="mailto:confusion@food.net">confusion@food.net
-                          </a>
+          </a>
         </address>
         <p></p>
         <div>
-          <a md-raised-button href="tel:+85212345678"><i class="fa fa
+          <a md-raised-button href="tel:+85212345678">
+            <i class="fa fa
                       -phone"></i> Call</a>
-          <a md-raised-button><i class="fa fa-skype"></i> Skype</a>
-          <a md-raised-button href="mailto:confusion@food.net"><i
-                      class="fa fa-envelope-o"></i> Email</a>
+          <a md-raised-button>
+            <i class="fa fa-skype"></i> Skype</a>
+          <a md-raised-button href="mailto:confusion@food.net">
+            <i class="fa fa-envelope-o"></i> Email</a>
         </div>
       </div>
       <div fxFlex="40">
@@ -35,4 +37,70 @@
       </div>
     </div>
   </div>
+
+  <div fxFlex fxFlexOffset="20px" class="form-size">
+    <h3>Send us your Feedback</h3>
+    <p>{{ feedbackForm.value | json }} {{ feedbackForm.status | json }}</p>
+    <form novalidate [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
+      <p>
+        <mat-form-field dividerColor="{{(feedbackForm.get('firstname').hasError('required') && feedbackForm.get('firstname').pristine) ? 'warn' : 'primary'}}"
+          class="half-width">
+          First name:
+          <input matInput formControlName="firstname" type="text" required>
+          <mat-hint>
+            <span [hidden]="!(feedbackForm.get('firstname').hasError('required') && feedbackForm.get('firstname').touched)">
+              firstname is required</span>
+          </mat-hint>
+        </mat-form-field>
+        <mat-form-field dividerColor="{{(feedbackForm.get('lastname').hasError('required') && feedbackForm.get('lastname').touched) ? 'warn' : 'primary'}}"
+          class="half-width">
+          Last Name:
+          <input matInput formControlName="lastname" type="text" required>
+          <mat-hint>
+            <span [hidden]="!(feedbackForm.get('lastname').hasError
+                                  ('required') && feedbackForm.get('lastname').touched)">
+              lastname is required</span>
+          </mat-hint>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field dividerColor="{{(feedbackForm.get('telnum').hasError('required') && feedbackForm.get('telnum').touched) ? 'warn' : 'primary'}}"
+          class="half-width">
+          Tel. Number
+          <input matInput formControlName="telnum" type="tel" required>
+          <mat-hint [hidden]="!(feedbackForm.get('telnum').hasError
+          ('required') && feedbackForm.get('telnum').touched)">
+
+            lastname is required
+          </mat-hint>
+          <mat-error *ngIf="( !feedbackForm.get('telnum').hasError('required') || feedbackForm.get('telnum').touched ) ">tel lnum please</mat-error>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field class="half-width">
+          Email:
+          <input matInput formControlName="email" type="email" required>
+        </mat-form-field>
+      </p>
+      <table class="form-size">
+        <td>
+          <mat-slide-toggle formControlName="agree">May we contact you?</mat-slide-toggle>
+        </td>
+
+        <td>
+          <select formControlName="contacttype">
+            <option *ngFor="let ctype of contactType" [value]="ctype">{{ ctype }}</option>
+          </select>
+        </td>
+      </table>
+      <mat-form-field class="full-width">
+        Your Feedback:
+        <textarea matInput formControlName="message" rows=12></textarea>
+      </mat-form-field>
+      <button type="submit" mat-raised-button class="background-primary ">Submit</button>
+      hi
+    </form>
+  </div>
+
+
 </div>

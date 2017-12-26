@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { People } from '../shared/People';
 import { LeaderService } from '../services/leader.service';
+import { Employees } from '../shared/Employees';
 
 @Component({
   selector: 'app-about',
@@ -15,7 +16,7 @@ export class AboutComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.Employees=this.leaderService.getAllEmployees();
+    this.leaderService.getAllEmployees().then(Employees=>this.Employees=Employees);
   }
 
   

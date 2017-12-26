@@ -7,11 +7,15 @@ export class LeaderService {
 
   constructor() { }
 
-  getAllEmployees() : People[] {
-    return Employees;
+  getAllEmployees() : Promise<People[]> {
+    return new Promise(resolve=>{
+      setTimeout(() => resolve(Employees), 2000);
+    });
   }
-  getFeaturedLeader() : People {
-    return Employees.filter(People=>People.featured==1)[0];
+  getFeaturedLeader() : Promise<People> {
+    return new Promise(resolve=>{
+      setTimeout(() => resolve(Employees.filter(People=>People.featured==1)[0]), 2000);
+    });
   }
 
 }
