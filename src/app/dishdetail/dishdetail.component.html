@@ -8,7 +8,7 @@
           <h3>{{dish.name}}</h3>
         </mat-card-title>
       </mat-card-header>
-      <img mat-card-image src={{dish.image}} style="height:200px;width:50%;">
+      <img mat-card-image src="{{BaseURL+dish.image}}" style="height:200px;width:50%;">
       <mat-card-content>
         <p>{{dish.description}}</p>
       </mat-card-content>
@@ -76,7 +76,11 @@
       </p>
     </form>
   </div>
-  <div [hidden]="dish">
-    <md-spinner></md-spinner>
-    <h4>Loading . . . Please Wait</h4>
-  </div>
+</div>
+<div [hidden]="dish || errMess">
+    <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+    </div>
+    <div *ngIf="errMess">
+    <h2>Error</h2>
+    <h4>{{errMess}}</h4>
+    </div>

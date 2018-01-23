@@ -9,6 +9,8 @@ import {MatListModule} from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { RestangularModule, Restangular } from 'ngx-restangular';
+import { RestangularConfigFactory } from './shared/restConfig';
 
 import 'hammerjs';
 import { MenuComponent } from './menu/menu.component';
@@ -31,12 +33,15 @@ import { MatSelectModule } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material';
 import { MatSliderModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material';
+import { HttpModule } from '@angular/http';
 
 //Services
 import { DishService } from './services/dish.service';
 import { PromotionService } from './services/promotion.service';
 import { LeaderService } from './services/leader.service';
 import { LoginComponent } from './login/login.component';
+import { baseURL } from './shared/baseurl';
+import { ProcessHttpmsgService } from './services/process-httpmsg.service';
 
 
 @NgModule({
@@ -70,12 +75,16 @@ import { LoginComponent } from './login/login.component';
     MatSelectModule,
     MatProgressSpinnerModule,
     MatSliderModule,
-    MatFormFieldModule    
+    MatFormFieldModule,
+    HttpModule,
+    RestangularModule.forRoot(RestangularConfigFactory)    
   ],
   providers: [
     DishService,
     PromotionService,
-    LeaderService
+    LeaderService,
+    {provide: 'BaseURL', useValue: baseURL},
+    ProcessHttpmsgService
   ],
   entryComponents: [
     LoginComponent

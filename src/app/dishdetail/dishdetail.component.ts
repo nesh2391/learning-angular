@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { Dish } from '../shared/dish';
 import { DishService } from '../services/dish.service';
 import { Params, ActivatedRoute } from '@angular/router';
@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Comment } from '../shared/Comment';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/catch';
 
 @Component({
   selector: 'app-dishdetail',
@@ -28,6 +29,7 @@ export class DishdetailComponent implements OnInit {
       'maxlength': 'Comment cannot be more than 100 characters long.'
     }
   };
+  dishcopy = null;
   dish: Dish;
   dishIds: number[];
   prev: number;
@@ -35,9 +37,10 @@ export class DishdetailComponent implements OnInit {
   submitedComment: Comment;
   next: number;
   current: number;
+  errMess:string;
   constructor(private dishservice: DishService,
     private route: ActivatedRoute,
-    private location: Location,private fb: FormBuilder ) {
+    private location: Location,private fb: FormBuilder,@Inject('BaseURL') private BaseURL ) {
       this.createForm();
      }
 
@@ -46,8 +49,9 @@ export class DishdetailComponent implements OnInit {
     this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
     this.route.params
     .switchMap( (params: Params) =>this.dishservice.getDish(+params['id']) )
-    .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id); });
-   
+    .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this
+      .setPrevNext(dish.id); },
+      errmess => { this.dish = null; this.errMess = <any>errmess; });
   }
  
   setPrevNext(dishId: number) {
@@ -85,7 +89,8 @@ export class DishdetailComponent implements OnInit {
       let d = new Date();
       this.submitedComment=this.commentForm.value;
       this.submitedComment.date=d.toISOString();
-      this.dish.comments.push(this.submitedComment);
+      this.dishcopy.comments.push(this.submitedComment);
+      this.dishcopy.save().subscribe(dish => { this.dish = dish; console.log(this.dish); });
       this.commentForm.reset();
       //console.log("overall  "+JSON.stringify(this.dish));
     }
